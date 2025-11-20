@@ -1,0 +1,6 @@
+{
+    "login": {
+        "invalidEmail": "Podany adres email jest nieprawidłowy",
+        "invalidPassword": "Nieprawidłowe dane logowania"
+    }
+}
