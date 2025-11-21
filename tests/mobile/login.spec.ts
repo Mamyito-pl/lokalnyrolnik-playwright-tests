@@ -7,7 +7,7 @@ import messages from '../../test-data/messages.json';
 test.describe('Testy logowania', async () => {
 
   test.beforeEach(async ({ page, baseURL }) => {
-    await page.goto(`${baseURL}/logowanie`);
+    await page.goto(`${baseURL}/logowanie`, { waitUntil: 'networkidle' });
     await utility.addGlobalStyles(page);
   })
 
