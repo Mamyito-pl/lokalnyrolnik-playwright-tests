@@ -3,12 +3,16 @@ import { LoginPage } from '../page/Login.page.ts';
 import { CommonPage } from '../page/Common.page.ts';
 import { SearchbarPage } from '../page/Searchbar.page.ts';
 import { CartPage } from '../page/Cart.page.ts';
+import { DeliveryPage } from '../page/Delivery.page.ts';
+import { DeliveryAddressesPage } from '../page/Profile/DeliveryAddresses.page.ts';
 
 type PageObjectsFixtures = {
     loginPage: LoginPage;
     commonPage: CommonPage;
     searchbarPage: SearchbarPage;
     cartPage: CartPage;
+    deliveryPage: DeliveryPage;
+    deliveryAddressesPage: DeliveryAddressesPage;
 };
 
 export const test = base.extend<PageObjectsFixtures>({
@@ -16,6 +20,8 @@ export const test = base.extend<PageObjectsFixtures>({
     commonPage: async ({ page }, use) => { await use(new CommonPage(page)); },
     searchbarPage: async ({ page }, use) => { await use(new SearchbarPage(page)); },
     cartPage: async ({ page }, use) => { await use(new CartPage(page)); },
+    deliveryPage: async ({ page }, use) => { await use(new DeliveryPage(page)); },
+    deliveryAddressesPage: async ({ page }, use) => { await use(new DeliveryAddressesPage(page)); },
 });
 
 export { expect } from '@playwright/test';
