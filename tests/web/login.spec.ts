@@ -38,7 +38,7 @@ test.describe('Testy logowania', async () => {
 
     await loginPage.login(credentials.invalidUser.email, `${process.env.PASSWORD}`);
     await expect(page).toHaveURL(`${baseURL}` + '/logowanie');
-    await expect(commonPage.messageBox).toHaveText(messages.login.invalidEmail, { timeout: 10000 });
+    await expect(commonPage.alertBox).toHaveText(messages.login.invalidEmail, { timeout: 10000 });
   })
 
   test.use({ storageState: { cookies: [], origins: [] }})
@@ -53,7 +53,7 @@ test.describe('Testy logowania', async () => {
     
     await loginPage.login(`${process.env.EMAIL}`, credentials.invalidUser.password);
     await expect(page).toHaveURL(`${baseURL}` + '/logowanie');
-    await expect(commonPage.messageBox).toHaveText(messages.login.invalidPassword, { timeout: 10000 });
+    await expect(commonPage.alertBox).toHaveText(messages.login.invalidPassword, { timeout: 10000 });
   })
 })
 
