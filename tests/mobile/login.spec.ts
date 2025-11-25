@@ -12,7 +12,7 @@ test.describe('Testy logowania', async () => {
   })
 
   test.use({ storageState: { cookies: [], origins: [] }})
-  test('W | Logowanie z poprawnymi danymi', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, baseURL, loginPage, commonPage }) => {
+  test('M | Logowanie z poprawnymi danymi', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, baseURL, loginPage, commonPage }) => {
 
     await allure.tags('Mobilne', 'Logowanie');
     await allure.epic('Mobilne');
@@ -27,7 +27,7 @@ test.describe('Testy logowania', async () => {
   })
 
   test.use({ storageState: { cookies: [], origins: [] }})
-  test('W | Logowanie z niepoprawnym emailem', { tag: ['@Prod', '@Beta', '@Test'] }, async ({ page, baseURL, loginPage, commonPage }) => {
+  test('M | Logowanie z niepoprawnym emailem', { tag: ['@Prod', '@Beta', '@Test'] }, async ({ page, baseURL, loginPage, commonPage }) => {
 
     await allure.tags('Mobilne', 'Logowanie');
     await allure.epic('Mobilne');
@@ -38,11 +38,12 @@ test.describe('Testy logowania', async () => {
 
     await loginPage.login(credentials.invalidUser.email, `${process.env.PASSWORD}`);
     await expect(page).toHaveURL(`${baseURL}` + '/logowanie');
-    await expect(commonPage.messageBox).toHaveText(messages.login.invalidEmail, { timeout: 10000 });
+    await commonPage.alertBox.waitFor({ state: 'visible', timeout: 10000 });
+    await expect(commonPage.alertBox).toHaveText(messages.login.invalidEmail, { timeout: 10000 });
   })
 
   test.use({ storageState: { cookies: [], origins: [] }})
-  test('W | Logowanie z niepoprawnym hasłem', { tag: ['@Prod', '@Beta', '@Test'] }, async ({ page, baseURL, loginPage, commonPage }) => {
+  test('M | Logowanie z niepoprawnym hasłem', { tag: ['@Prod', '@Beta', '@Test'] }, async ({ page, baseURL, loginPage, commonPage }) => {
 
     await allure.tags('Mobilne', 'Logowanie');
     await allure.epic('Mobilne');
@@ -53,7 +54,7 @@ test.describe('Testy logowania', async () => {
     
     await loginPage.login(`${process.env.EMAIL}`, credentials.invalidUser.password);
     await expect(page).toHaveURL(`${baseURL}` + '/logowanie');
-    await expect(commonPage.messageBox).toHaveText(messages.login.invalidPassword, { timeout: 10000 });
+    await expect(commonPage.alertBox).toHaveText(messages.login.invalidPassword, { timeout: 10000 });
   })
 })
 
