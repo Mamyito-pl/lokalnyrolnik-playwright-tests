@@ -2,5 +2,10 @@
     "login": {
         "invalidEmail": "Podany adres email jest nieprawidłowy",
         "invalidPassword": "Nieprawidłowe dane logowania"
+    },
+    "delivery": {
+        "addressAdded": "Dane zostały zapisane",
+        "addressUpdated": "Adres \"{{addressName}}\" został zaktualizowany.",
+        "addressDeleted": "Adres \"{{addressName}}\" został usunięty."
     }
 }
