@@ -23,8 +23,8 @@ test.describe('Testy koszyka', () => {
 
   test('M | Możliwość zwiększenia ilości produktu w koszyku', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, commonPage, addProduct }) => {
 
-    await allure.tags('Web', 'Koszyk');
-    await allure.epic('Webowe');
+    await allure.tags('Mobilne', 'Koszyk');
+    await allure.epic('Mobilne');
     await allure.parentSuite('Koszyk');
     await allure.suite('Testy koszyka');
     await allure.subSuite('');
@@ -49,8 +49,8 @@ test.describe('Testy koszyka', () => {
 
   test('M | Możliwość zmniejszenia ilości produktu w koszyku', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, commonPage, addProduct }) => {
 
-    await allure.tags('Web', 'Koszyk');
-    await allure.epic('Webowe');
+    await allure.tags('Mobilne', 'Koszyk');
+    await allure.epic('Mobilne');
     await allure.parentSuite('Koszyk');
     await allure.suite('Testy koszyka');
     await allure.subSuite('');
@@ -82,8 +82,8 @@ test.describe('Testy koszyka', () => {
 
   test('M | Możliwość usunięcia produktu z koszyka', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, commonPage, addProduct }) => {
 
-    await allure.tags('Web', 'Koszyk');
-    await allure.epic('Webowe');
+    await allure.tags('Mobilne', 'Koszyk');
+    await allure.epic('Mobilne');
     await allure.parentSuite('Koszyk');
     await allure.suite('Testy koszyka');
     await allure.subSuite('');
@@ -110,8 +110,8 @@ test.describe('Testy koszyka', () => {
 
   test('M | Możliwość dodania produktu w ilości > 1 do koszyka', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, searchbarPage, cartPage, commonPage }) => {
 
-    await allure.tags('Web', 'Koszyk');
-    await allure.epic('Webowe');
+    await allure.tags('Mobilne', 'Koszyk');
+    await allure.epic('Mobilne');
     await allure.parentSuite('Koszyk');
     await allure.suite('Testy koszyka');
     await allure.subSuite('');
