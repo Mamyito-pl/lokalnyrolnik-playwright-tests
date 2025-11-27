@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { isMobile } from '../utils/utility-methods';
 
 export class LoginPage {

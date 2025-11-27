@@ -1,5 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test';
-import { isMobile } from '../utils/utility-methods';
+import { type Locator, type Page } from '@playwright/test';
 import { DeliveryAddressesPage } from './Profile/DeliveryAddresses.page';
 
 export class DeliveryPage extends DeliveryAddressesPage {

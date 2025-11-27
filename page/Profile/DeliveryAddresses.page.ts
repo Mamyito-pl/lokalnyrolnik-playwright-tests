@@ -1,10 +1,8 @@
-import { expect, type Locator, type Page } from '@playwright/test';
-import { isMobile } from '../../utils/utility-methods';
+import { type Locator, type Page } from '@playwright/test';
+import { CommonPage } from '../Common.page';
 
-export class DeliveryAddressesPage {
-    private readonly page: Page;
-    private readonly mobile: boolean;
-    readonly addressModal: Locator;
+export class DeliveryAddressesPage extends CommonPage {
+    readonly page: Page;
     readonly addressModalAddressName: Locator;
     readonly addressModalUserName: Locator;
     readonly addressModalUserSurname: Locator;
@@ -21,11 +19,10 @@ export class DeliveryAddressesPage {
     readonly addressModalCancelButton: Locator;
     readonly addressModalConfirmationButton: Locator;
     readonly deliveryAddressSectionTitle: Locator;
+    readonly closeAddressModalButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.mobile = isMobile(page);
-        this.addressModal = page.locator('div[data-sentry-element="Modal"]');
+        super(page);
         this.addressModalAddressName = page.locator('#delivery_address_name');
         this.addressModalUserName = page.locator('#delivery_address_first_name');
         this.addressModalUserSurname = page.locator('#delivery_address_last_name');
@@ -42,6 +39,7 @@ export class DeliveryAddressesPage {
         this.addressModalCancelButton = page.getByRole('button', { name: 'Anuluj' });
         this.addressModalConfirmationButton = page.getByRole('button', { name: 'Potwierdź' });
         this.deliveryAddressSectionTitle = page.locator('#profile_details_delivery_addresses').getByText('Adresy dostaw');
+        this.closeAddressModalButton = page.locator('button[aria-label="Zamknij"]');
     }
 
     async clickEditAddressButton(addressName: string) {
@@ -53,11 +51,15 @@ export class DeliveryAddressesPage {
         return this.page.getByText(addressName).locator('..').locator('..').locator('..').locator('div').locator('div').locator('svg[class*="tabler-icon tabler-icon-trash "]').click();
     }
 
-    addressModalDeleteAddressName(addressName: string) {
-        return this.addressModal.locator(`div[data-sentry-element="AddressName"]:has-text("${addressName}")`);
-    }
-
     async clickAddressModalSaveButton() {
         await this.addressModalSaveButton.click();
+    }
+
+    async clickCloseAddressModalButton() {
+        await this.closeAddressModalButton.click();
+    }
+
+    addressModalDeleteAddressName(addressName: string) {
+        return this.modal.locator(`div[data-sentry-element="AddressName"]:has-text("${addressName}")`);
     }
 }

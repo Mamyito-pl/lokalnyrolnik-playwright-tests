@@ -8,6 +8,10 @@ import { DeliveryAddressesPage } from '../page/Profile/DeliveryAddresses.page.ts
 import { MainPage } from '../page/Main.page.ts';
 import { ProfilePage } from '../page/Profile/Profile.page.ts';
 import { NonLoggedUserPage } from '../page/NonLoggedUser.page.ts';
+import { ProductsListPage } from '../page/ProductsList.page.ts';
+import { PaymentsPage } from '../page/Payments.page.ts';
+import { OrderDetailsPage } from '../page/Profile/OrderDetails.page.ts';
+import { OrdersListPage } from '../page/Profile/OrdersList.page.ts';
 
 type PageObjectsFixtures = {
     loginPage: LoginPage;
@@ -19,6 +23,10 @@ type PageObjectsFixtures = {
     mainPage: MainPage;
     profilePage: ProfilePage;
     nonLoggedUserPage: NonLoggedUserPage;
+    productsListPage: ProductsListPage;
+    paymentsPage: PaymentsPage;
+    orderDetailsPage: OrderDetailsPage;
+    ordersListPage: OrdersListPage;
 };
 
 export const test = base.extend<PageObjectsFixtures>({
@@ -31,6 +39,10 @@ export const test = base.extend<PageObjectsFixtures>({
     mainPage: async ({ page }, use) => { await use(new MainPage(page)); },
     profilePage: async ({ page }, use) => { await use(new ProfilePage(page)); },
     nonLoggedUserPage: async ({ page }, use) => { await use(new NonLoggedUserPage(page)); },
+    productsListPage: async ({ page }, use) => { await use(new ProductsListPage(page)); },
+    paymentsPage: async ({ page }, use) => { await use(new PaymentsPage(page)); },
+    orderDetailsPage: async ({ page }, use) => { await use(new OrderDetailsPage(page)); },
+    ordersListPage: async ({ page }, use) => { await use(new OrdersListPage(page)); },
 });
 
 export { expect } from '@playwright/test';
