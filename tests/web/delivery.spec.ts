@@ -113,8 +113,8 @@ test.describe('Testy dostawy', async () => {
       
       await page.goto('/dostawa', { waitUntil: 'load' });
 
-      await expect(deliveryPage.addressModal).toBeVisible({ timeout: 10000 });
-      await expect(deliveryPage.addressModal).toContainText('Dodaj nowy adres');
+      await expect(commonPage.modal).toBeVisible({ timeout: 10000 });
+      await expect(commonPage.modal).toContainText('Dodaj nowy adres');
 
       await expect(deliveryPage.addressModalAddressName).toBeVisible();
       await deliveryPage.addressModalAddressName.fill(addressName);
@@ -181,8 +181,8 @@ test.describe('Testy dostawy', async () => {
 
       await deliveryPage.clickEditAddressButton(addressName2);
 
-      await expect(deliveryPage.addressModal).toBeVisible({ timeout: 10000 });
-      await expect(deliveryPage.addressModal).toContainText('Edytuj adres');
+      await expect(commonPage.modal).toBeVisible({ timeout: 10000 });
+      await expect(commonPage.modal).toContainText('Edytuj adres');
 
       await expect(deliveryPage.addressModalAddressName).toHaveValue(addressName2)
       await deliveryPage.addressModalAddressName.fill(addressName3);
@@ -228,8 +228,8 @@ test.describe('Testy dostawy', async () => {
 
       await deliveryPage.clickEditAddressButton(addressName3);
 
-      await expect(deliveryPage.addressModal).toBeVisible({ timeout: 10000 });
-      await expect(deliveryPage.addressModal).toContainText('Edytuj adres');
+      await expect(commonPage.modal).toBeVisible({ timeout: 10000 });
+      await expect(commonPage.modal).toContainText('Edytuj adres');
       await expect(deliveryPage.addressModalAddressName).toHaveValue(addressName3)
       await expect(deliveryPage.addressModalUserName).toHaveValue('Jan1');
       await expect(deliveryPage.addressModalUserSurname).toHaveValue('Kowalski1');
@@ -244,7 +244,7 @@ test.describe('Testy dostawy', async () => {
       await expect(deliveryPage.addressModalUserDeliveryNotes).toHaveValue('Edytowana testowa notatka');
     })
     
-    test('W | Możliwość usunięcia adresu dostawy', { tag: ['@ProdSmoke', '@Beta', '@Test'] }, async ({ page, deliveryPage, commonPage, addAddressDeliveryViaAPI }) => {
+    test('W | Możliwość usunięcia adresu dostawy', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, deliveryPage, commonPage, addAddressDeliveryViaAPI }) => {
 
       await allure.tags('Web', 'Dostawa');
       await allure.epic('Webowe');
@@ -265,8 +265,8 @@ test.describe('Testy dostawy', async () => {
 
       await deliveryPage.clickDeleteAddressButton(addressName3);
 
-      await expect(deliveryPage.addressModal).toBeVisible({ timeout: 10000 });
-      await expect(deliveryPage.addressModal).toContainText('Potwierdź usunięcie adresu');
+      await expect(commonPage.modal).toBeVisible({ timeout: 10000 });
+      await expect(commonPage.modal).toContainText('Potwierdź usunięcie adresu');
       await expect(deliveryPage.addressModalDeleteAddressName(addressName3)).toContainText(addressName3);
       await expect(deliveryPage.addressModalCancelButton).toBeVisible();
       await expect(deliveryPage.addressModalConfirmationButton).toBeVisible();

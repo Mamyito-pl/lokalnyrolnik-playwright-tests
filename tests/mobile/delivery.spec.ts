@@ -244,7 +244,7 @@ test.describe('Testy dostawy', async () => {
       await expect(deliveryPage.addressModalUserDeliveryNotes).toHaveValue('Edytowana testowa notatka');
     })
     
-    test('M | Możliwość usunięcia adresu dostawy', { tag: ['@ProdSmoke', '@Beta', '@Test'] }, async ({ page, deliveryPage, commonPage, addAddressDeliveryViaAPI }) => {
+    test('M | Możliwość usunięcia adresu dostawy', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, deliveryPage, commonPage, addAddressDeliveryViaAPI }) => {
 
       await allure.tags('Mobilne', 'Dostawa');
       await allure.epic('Mobilne');

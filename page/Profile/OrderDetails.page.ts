@@ -4,11 +4,13 @@ export class OrderDetailsPage {
     readonly page: Page;
     readonly cancelOrderButton: Locator;
     readonly cancelConfirmationButton: Locator;
+    readonly backToOrdersButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.cancelOrderButton = page.getByRole('button', { name: 'Anuluj' });
         this.cancelConfirmationButton = page.locator('#modal-portal div div').getByRole('button', { name: 'Potwierdź'});
+        this.backToOrdersButton = page.locator('#profile_order_back_button');
     }
 
     async clickCancelOrderButton() {
