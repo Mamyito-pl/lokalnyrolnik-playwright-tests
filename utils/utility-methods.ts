@@ -25,3 +25,12 @@ export function isMobile(page: Page): boolean {
   if (!viewport) throw new Error('Viewport is null');
   return viewport.width <= 400;
 }
+
+export async function addTestParam(page: Page, param = 'testy-automatyczne') {
+  const currentUrl = page.url();
+  if (!currentUrl.includes(param)) {
+    const separator = currentUrl.includes('?') ? '&' : '?';
+    const newUrl = `${currentUrl}${separator}${param}`;
+    await page.goto(newUrl, { waitUntil: 'domcontentloaded' });
+  }
+}
