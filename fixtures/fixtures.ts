@@ -7,6 +7,7 @@ type MyFixtures = {
     addAddressDeliveryViaAPI: (addressName: string, addressType?: 'defaultDeliveryAddress' | 'alternativeDeliveryAddress') => Promise<void>;
     deleteDeliveryAddressViaAPI: (addressName: string) => Promise<void>;
     detachDeliverySlotViaAPI: () => Promise<void>;
+    addProductsByValue: (maxValue: number) => Promise<void>;
 }
 
 export const test = base.extend<MyFixtures>({
@@ -142,6 +143,61 @@ export const test = base.extend<MyFixtures>({
   
     await use(detachDeliverySlotViaAPI);
   },
+
+  addProductsByValue: async ({ page, productsListPage }, use) => {
+
+    const addProductsByValue = async (maxValue: number): Promise<void> => {
+      let currentValue = 0;
+      let addedCount = 0;
+      
+      if (`${process.env.URL}` == 'https://lokalnyrolnik.pl') {
+        await page.goto(`${process.env.URL}/dania-gotowe`, { waitUntil: 'load' });
+      } else {
+        await page.goto(`${process.env.URL}/dania-gotowe-4`, { waitUntil: 'load' });
+      }
+      await productsListPage.productCategoryTitle('Dania gotowe').waitFor({ state: 'visible', timeout: 15000 });
+      await page.waitForTimeout(10000);
+
+      const productPriceElements = await page.locator('[data-cy="product-card-current-price"]').all();
+      const limitedElements = productPriceElements.slice(0, 12);
+      const productPrices: number[] = [];
+      
+      for (let i = 0; i < limitedElements.length; i++) {
+        const priceText = await limitedElements[i].textContent();
+        if (priceText !== null) {
+          const priceValue = parseFloat(priceText.replace(/[^\d.,]/g, '').replace(',', '.'));
+          if (!isNaN(priceValue)) {
+            productPrices.push(priceValue);
+          }
+        }
+      }
+      
+      console.log(`Dostępne ceny produktów: ${productPrices.join(', ')}zł`);
+
+      for (let i = 0; i < productPrices.length && currentValue < maxValue; i++) {
+        const priceValue = productPrices[i];
+        
+        if ((currentValue + priceValue) <= maxValue) {
+          await productsListPage.productCardAddButton.first().click({ force: true, delay: 300 });
+          await page.waitForTimeout(3000);
+          currentValue += priceValue;
+          addedCount++;
+          
+          console.log(`Dodano produkt za ${priceValue}zł, łączna wartość: ${currentValue}zł`);
+        } else {
+          console.log(`Pominięto produkt za ${priceValue}zł (suma ${currentValue + priceValue}zł przekroczyłaby maksimum ${maxValue}zł)`);
+        }
+      }
+      
+      if (currentValue >= 150) {
+        console.log(`✅ Dodano ${addedCount} produktów na łączną wartość: ${currentValue}zł (przedział 150-${maxValue}zł)`);
+      } else {
+        console.log(`❌ Dodano ${addedCount} produktów na łączną wartość: ${currentValue}zł - nie osiągnięto minimum 150zł`);
+      }
+    };
+
+    await use(addProductsByValue);
+  }
 });
 
 export const expect = test.expect;
