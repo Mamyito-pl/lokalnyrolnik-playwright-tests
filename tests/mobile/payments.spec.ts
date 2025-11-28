@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/fixtures.ts';
 import * as allure from "allure-js-commons";
 import * as utility from '../../utils/utility-methods';
 
-test.describe.skip('Testy płatności', async () => {
+test.describe.fixme('Testy płatności', async () => {
 
   test.beforeEach(async ({ page, addAddressDeliveryViaAPI }) => {
 
