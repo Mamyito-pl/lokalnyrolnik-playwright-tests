@@ -33,9 +33,9 @@ test.describe('Testy koszyka', () => {
     await addProduct(product);
 
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
+    await commonPage.waitForProductsInCart();
     await commonPage.clickNotificationButton();
-    const productCount = await cartPage.productList.count();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('1');
     await page.evaluate(() => {
@@ -59,9 +59,9 @@ test.describe('Testy koszyka', () => {
     await addProduct(product);
 
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
+    await commonPage.waitForProductsInCart();
     await commonPage.clickNotificationButton();
-    const productCount = await cartPage.productList.count();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('1');
     for (let i = 0; i < 2; i++) {
@@ -92,9 +92,9 @@ test.describe('Testy koszyka', () => {
     await addProduct(product);
 
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
+    await commonPage.waitForProductsInCart();
     await commonPage.clickNotificationButton();
-    const productCount = await cartPage.productList.count();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('1');
     await page.evaluate(() => {
@@ -104,7 +104,7 @@ test.describe('Testy koszyka', () => {
     await cartPage.clickDeleteProductCartIcon();
     await cartPage.clickDeleteProductCartConfirmButton();
     await page.waitForTimeout(2000);
-    const productCountAfterDelete = await cartPage.productList.count();
+    const productCountAfterDelete = await commonPage.productCartList.count();
     expect(productCountAfterDelete).toBe(0);
   })
 
@@ -126,9 +126,9 @@ test.describe('Testy koszyka', () => {
     await page.waitForTimeout(5000);
     await expect(searchbarPage.productItemCount).toHaveValue('2');
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
+    await commonPage.waitForProductsInCart();
     await commonPage.clickNotificationButton();
-    const productCount = await cartPage.productList.count();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('2');
   })

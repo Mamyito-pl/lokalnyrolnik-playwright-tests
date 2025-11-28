@@ -42,7 +42,7 @@ export const test = base.extend<PageObjectsFixtures>({
     productsListPage: async ({ page }, use) => { await use(new ProductsListPage(page)); },
     paymentsPage: async ({ page }, use) => { await use(new PaymentsPage(page)); },
     orderDetailsPage: async ({ page }, use) => { await use(new OrderDetailsPage(page)); },
-    ordersListPage: async ({ page }, use) => { await use(new OrdersListPage(page)); },
+    ordersListPage: async ({ page }, use) => { await use(new OrdersListPage(page)); }
 });
 
 export { expect } from '@playwright/test';

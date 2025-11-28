@@ -16,7 +16,7 @@ export class LoginPage {
         this.registerButton = page.getByRole('button', { name: 'Zarejestruj się' });
     }
 
-    async login(email: string, password: string): Promise<void> {
+    async login(email: string, password: string) {
         await this.emailInput.waitFor({ state: 'visible' });
         await this.emailInput.fill(email);
         await this.passwordInput.fill(password);
