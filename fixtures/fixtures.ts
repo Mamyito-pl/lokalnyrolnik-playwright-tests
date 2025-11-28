@@ -7,6 +7,9 @@ type MyFixtures = {
     clearCartViaAPI: () => Promise<void>;
     addAddressDeliveryViaAPI: (addressName: string, addressType?: 'defaultDeliveryAddress' | 'alternativeDeliveryAddress') => Promise<void>;
     deleteDeliveryAddressViaAPI: (addressName: string) => Promise<void>;
+    addInvoiceAddressViaAPI: (addressName: string, addressType?: 'defaultInvoiceAddress' | 'alternativeInvoiceAddress') => Promise<void>;
+    deleteInvoiceAddressViaAPI: (addressName: string) => Promise<void>;
+    addInvoiceAddress: (addressName: string, addressType?: 'defaultInvoiceAddress' | 'alternativeInvoiceAddress') => Promise<void>;
     detachDeliverySlotViaAPI: () => Promise<void>;
     addProductsByValue: (maxValue: number) => Promise<void>;
 }
@@ -160,6 +163,103 @@ export const test = base.extend<MyFixtures>({
     };
   
     await use(detachDeliverySlotViaAPI);
+  },
+
+  addInvoiceAddressViaAPI: async ({ request }, use) => {
+    const addInvoiceAddressViaAPI = async (addressName: string, addressType: 'defaultInvoiceAddress' | 'alternativeInvoiceAddress' = 'defaultInvoiceAddress'): Promise<void> => {
+    
+      const { data: { token } } = await (await request.post(`${process.env.APIURL}/api/login`, {
+        headers: { Accept: 'application/json' },
+        data: { email: process.env.EMAIL, password: process.env.PASSWORD },
+      })).json();
+
+      const selectedAddress = addressData[addressType];
+      
+      const addInvoiceResponse = await request.post(`${process.env.APIURL}/api/addresses`, {
+        headers: { Authorization: `Bearer ${token}` },
+        data: {
+          ...selectedAddress,
+          name: addressName,
+        },
+      });
+
+      expect(addInvoiceResponse.status()).toBe(201);
+    };
+    
+    await use(addInvoiceAddressViaAPI);
+  },
+
+  addInvoiceAddress: async ({ page, invoiceAddressesPage, deliveryPage }, use) => {
+
+    const addPersonalInvoiceAddressDelivery = async (addressName: string, addressType: 'defaultInvoiceAddress' | 'alternativeInvoiceAddress' = 'defaultInvoiceAddress') => {
+      
+      const selectedAddress = addressData[addressType];
+      
+      await invoiceAddressesPage.clickAddNewInvoiceAddressButton();
+      await page.waitForSelector('div[data-sentry-element="Modal"]', { state: 'visible', timeout: 10000 });
+      
+      await invoiceAddressesPage.invoiceModalAddressName.fill(addressName);
+      await invoiceAddressesPage.invoiceModalUserName.fill(selectedAddress.first_name);
+      await invoiceAddressesPage.invoiceModalUserSurname.fill(selectedAddress.last_name);
+      await invoiceAddressesPage.invoiceModalCompanyName.fill(selectedAddress.company_name);
+      await invoiceAddressesPage.invoiceModalNIP.fill(selectedAddress.nip);
+      await invoiceAddressesPage.invoiceModalUserPostalCode.fill(selectedAddress.postal_code);
+      await invoiceAddressesPage.invoiceModalUserCity.fill(selectedAddress.city);
+      await invoiceAddressesPage.invoiceModalUserStreet.fill(selectedAddress.street);
+      await invoiceAddressesPage.invoiceModalUserHouseNumber.fill(selectedAddress.house_number);
+      await invoiceAddressesPage.invoiceModalUserFlatNumber.fill(selectedAddress.flat_number);
+      await deliveryPage.clickAddressModalSaveButton();
+      await page.waitForTimeout(3000)
+
+      await page.getByText(addressName).isVisible();
+    };
+    await use(addPersonalInvoiceAddressDelivery);
+  },
+
+  deleteInvoiceAddressViaAPI: async ({ request }, use) => {
+    const deleteInvoiceAddressViaAPI = async (addressName: string): Promise<void> => {
+      
+      const tokenResponse = await request.post(`${process.env.APIURL}/api/login`, {
+        headers: {
+          'Accept': 'application/json'
+      },
+        data: {
+          email: `${process.env.EMAIL}`,
+          password: `${process.env.PASSWORD}`,
+        },
+      });
+
+      const responseBodyToken = await tokenResponse.json();
+
+      const token = responseBodyToken.data.token;
+
+      const invoiceAddressesResponse = await request.get(`${process.env.APIURL}/api/addresses/invoice`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      const responseBodyAddresses = await invoiceAddressesResponse.json();
+      const addresses = responseBodyAddresses.data;
+
+      const addressToDelete = addresses.find(address => address.name === addressName);
+
+      if (!addressToDelete) {
+        return;
+      }
+
+      const invoiceAddress_id = addressToDelete.id;
+
+      const deleteInvoiceAddress = await request.delete(`${process.env.APIURL}/api/addresses/${invoiceAddress_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(deleteInvoiceAddress.status()).toBe(204);
+    };
+    
+    await use(deleteInvoiceAddressViaAPI);
   },
 
   addProductsByValue: async ({ page, productsListPage }, use) => {
