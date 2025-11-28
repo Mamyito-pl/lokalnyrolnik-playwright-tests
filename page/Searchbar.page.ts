@@ -18,11 +18,11 @@ export class SearchbarPage {
         this.productItemCount = page.locator(this.mobile ? 'div[data-sentry-element="TabletContent"] div[data-testid="search-results"] div[data-sentry-element="ProductQuantityInput"] div input' : 'div[data-sentry-element="WebContent"] div[data-testid="search-results"] div[data-sentry-element="ProductQuantityInput"] div input');
     }
 
-    async enterProduct(product: string): Promise<void> {
+    async enterProduct(product: string) {
         await this.searchbarInput.fill(product);
     }
 
-    async clickSearchbar(): Promise<void> {
+    async clickSearchbar() {
         await this.searchbarInput.click({ force: true });
     }
 

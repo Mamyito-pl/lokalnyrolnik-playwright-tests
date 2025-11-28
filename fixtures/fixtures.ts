@@ -3,6 +3,7 @@ import addressData from '../test-data/addresses.json';
 
 type MyFixtures = {
     addProduct: (prodctName: string) => Promise<void>;
+    addBiggerAmountProduct: (productName: string) => Promise<void>;
     clearCartViaAPI: () => Promise<void>;
     addAddressDeliveryViaAPI: (addressName: string, addressType?: 'defaultDeliveryAddress' | 'alternativeDeliveryAddress') => Promise<void>;
     deleteDeliveryAddressViaAPI: (addressName: string) => Promise<void>;
@@ -20,6 +21,23 @@ export const test = base.extend<MyFixtures>({
       await page.waitForTimeout(1000);
       await searchbarPage.productSearchAddButton.first().click({ force: true, delay: 300 });
       await page.waitForTimeout(4000);
+    });
+  },
+
+  addBiggerAmountProduct: async ({ page, searchbarPage, commonPage }, use) => {
+    await use(async (product: string) => {
+      await searchbarPage.clickSearchbar();
+      await page.waitForTimeout(1000);
+      await searchbarPage.enterProduct(product);
+      await expect(commonPage.getLoader).toBeHidden({ timeout: 15000 });
+      await page.waitForTimeout(1000);
+      await searchbarPage.productSearchAddButton.first().click({ force: true, delay: 300 });
+      await page.waitForTimeout(4000);
+      await searchbarPage.productItemCount.click();
+      await page.waitForTimeout(1000);
+      await searchbarPage.productItemCount.type('1');
+      await commonPage.cartButton.click();
+      await page.waitForTimeout(1000);
     });
   },
 

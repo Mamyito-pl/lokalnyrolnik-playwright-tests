@@ -2,7 +2,6 @@ import { type Locator, type Page } from '@playwright/test';
 import { CommonPage } from '../Common.page';
 
 export class DeliveryAddressesPage extends CommonPage {
-    readonly page: Page;
     readonly addressModalAddressName: Locator;
     readonly addressModalUserName: Locator;
     readonly addressModalUserSurname: Locator;

@@ -63,7 +63,7 @@ export class PaymentsPage extends DeliveryPage {
             })
         } else {
             return;
-        }
+        };
 
         await expect(this.backHomeButton).toBeVisible();
     }
@@ -72,7 +72,7 @@ export class PaymentsPage extends DeliveryPage {
         const statusBeforeCancelIsVisible = await this.page.locator('div[data-sentry-element="HeaderOrderDetails"]').evaluate((element) => {
             const textContent = element.textContent || '';
             return textContent.includes('Oczekuje na płatność') || textContent.includes('Nowe');
-          });
+        });
 
         expect(statusBeforeCancelIsVisible).toBe(true);
     }
@@ -81,7 +81,7 @@ export class PaymentsPage extends DeliveryPage {
         const statusAfterCancelIsVisible = await this.page.locator('#ordersHeadline').locator('..').last().first().evaluate((element) => {
             const textContent = element.textContent || '';
             return textContent.includes('Anulowane');
-          });
+        });
 
         expect(statusAfterCancelIsVisible).toBe(true);
     }
