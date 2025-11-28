@@ -37,5 +37,41 @@
     "type": "delivery",
     "client_delivery_notes": "Testowa notatka",
     "floor": "2"
+  },
+
+  "defaultInvoiceAddress": {
+    "city": "Warszawa",
+    "first_name": "Jan",
+    "last_name": "Kowalski",
+    "house_number": "1",
+    "icon_color": "#ffa31a",
+    "icon_type": "company",
+    "is_default": false,
+    "latitude": 11,
+    "longitude": 11,
+    "postal_code": "00-828",
+    "street": "aleja Jana Pawła II",
+    "flat_number": "30",
+    "type": "invoice",
+    "company_name": "Testowa firma",
+    "nip": "8140667487"
+  },
+
+  "alternativeInvoiceAddress": {
+    "city": "Lesznowola",
+    "first_name": "Anna",
+    "last_name": "Nowak",
+    "house_number": "2",
+    "icon_color": "#ffa31a",
+    "icon_type": "company",
+    "is_default": false,
+    "latitude": 11,
+    "longitude": 11,
+    "postal_code": "05-506",
+    "street": "Oficerska",
+    "flat_number": "4",
+    "type": "invoice",
+    "company_name": "Edytowana nazwa firmy",
+    "nip": "1085179548"
   }
 }

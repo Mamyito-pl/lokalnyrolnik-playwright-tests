@@ -7,5 +7,10 @@
         "addressAdded": "Dane zostały zapisane",
         "addressUpdated": "Adres \"{{addressName}}\" został zaktualizowany.",
         "addressDeleted": "Adres \"{{addressName}}\" został usunięty."
+    },
+    "invoice": {
+        "addressAdded": "Dane zostały zapisane",
+        "addressUpdated": "Adres \"{{addressName}}\" został zaktualizowany.",
+        "addressDeleted": "Adres \"{{addressName}}\" został usunięty."
     }
 }
