@@ -21,7 +21,7 @@ test.describe('Testy koszyka', () => {
     await clearCartViaAPI();
   })
 
-  test('W | Możliwość zwiększenia ilości produktu w koszyku', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, addProduct }) => {
+  test('W | Możliwość zwiększenia ilości produktu w koszyku', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, commonPage, addProduct }) => {
 
     await allure.tags('Web', 'Koszyk');
     await allure.epic('Webowe');
@@ -33,8 +33,8 @@ test.describe('Testy koszyka', () => {
     await addProduct(product);
 
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
-    const productCount = await cartPage.productList.count();
+    await commonPage.waitForProductsInCart();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('1');
     await cartPage.clickIncreaseProductButton();
@@ -42,7 +42,7 @@ test.describe('Testy koszyka', () => {
     await expect(cartPage.productItemCount).toHaveValue('2');
   })
 
-  test('W | Możliwość zmniejszenia ilości produktu w koszyku', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, addProduct }) => {
+  test('W | Możliwość zmniejszenia ilości produktu w koszyku', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, commonPage, addProduct }) => {
 
     await allure.tags('Web', 'Koszyk');
     await allure.epic('Webowe');
@@ -54,8 +54,8 @@ test.describe('Testy koszyka', () => {
     await addProduct(product);
 
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
-    const productCount = await cartPage.productList.count();
+    await commonPage.waitForProductsInCart();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('1');
     for (let i = 0; i < 2; i++) {
@@ -70,7 +70,7 @@ test.describe('Testy koszyka', () => {
     await expect(cartPage.productItemCount).toHaveValue('1');
   })
 
-  test('W | Możliwość usunięcia produktu z koszyka', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, addProduct }) => {
+  test('W | Możliwość usunięcia produktu z koszyka', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, cartPage, commonPage, addProduct }) => {
 
     await allure.tags('Web', 'Koszyk');
     await allure.epic('Webowe');
@@ -82,14 +82,14 @@ test.describe('Testy koszyka', () => {
     await addProduct(product);
 
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
-    const productCount = await cartPage.productList.count();
+    await commonPage.waitForProductsInCart();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('1');
     await cartPage.clickDeleteProductCartIcon();
     await cartPage.clickDeleteProductCartConfirmButton();
     await page.waitForTimeout(2000);
-    const productCountAfterDelete = await cartPage.productList.count();
+    const productCountAfterDelete = await commonPage.productCartList.count();
     expect(productCountAfterDelete).toBe(0);
   })
 
@@ -111,9 +111,9 @@ test.describe('Testy koszyka', () => {
     await page.waitForTimeout(5000);
     await expect(searchbarPage.productItemCount).toHaveValue('2');
     await page.goto('/koszyk', { waitUntil: 'load'});
-    await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
+    await commonPage.waitForProductsInCart();
     await commonPage.clickNotificationButton();
-    const productCount = await cartPage.productList.count();
+    const productCount = await commonPage.productCartList.count();
     expect(productCount).toBe(1);
     await expect(cartPage.productItemCount).toHaveValue('2');
   })
