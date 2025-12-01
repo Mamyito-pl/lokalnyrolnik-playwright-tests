@@ -195,7 +195,6 @@ export const test = base.extend<MyFixtures>({
       
       const selectedAddress = addressData[addressType];
 
-
       await expect(commonPage.cartButton).toBeVisible({ timeout: 10000 });
       await invoiceAddressesPage.clickAddNewInvoiceAddressButton();
       await page.waitForSelector('div[data-sentry-element="Modal"]', { state: 'visible', timeout: 10000 });
