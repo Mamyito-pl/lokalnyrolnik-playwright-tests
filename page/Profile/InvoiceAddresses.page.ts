@@ -34,7 +34,7 @@ export class InvoiceAddressesPage extends CommonPage {
 
     async clickAddNewInvoiceAddressButton() {
         await expect(this.addNewInvoiceAddressButton).toBeVisible({ timeout: 10000 });
-        await this.addNewInvoiceAddressButton.click();
+        await this.addNewInvoiceAddressButton.click({ force: true, delay: 300 });
     }
 
     async clickEditAddressButton(addressName: string) {

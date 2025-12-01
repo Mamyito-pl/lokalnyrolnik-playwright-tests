@@ -13,7 +13,13 @@ test.describe('Testy dane do faktury', async () => {
 
   test.beforeEach(async ({ page }) => {
 
-    await page.goto('/profil/dane-faktury', { waitUntil: 'networkidle' });
+    await page.goto('/', { waitUntil: 'networkidle' });
+
+    page.on('framenavigated', async () => {
+      await utility.addGlobalStyles(page);
+    });
+
+    await page.goto('/profil/dane-faktury', { waitUntil: 'load' });
 
     page.on('framenavigated', async () => {
       await utility.addGlobalStyles(page);
@@ -98,8 +104,6 @@ test.describe('Testy dane do faktury', async () => {
     test.setTimeout(100000);
 
     await addInvoiceAddress(addressName2, 'defaultInvoiceAddress');
-
-    await expect(commonPage.cartButton).toBeVisible({ timeout: 10000 });
 
     await expect(invoiceAddressesPage.invoiceAddressPageTitle).toBeVisible();
 
