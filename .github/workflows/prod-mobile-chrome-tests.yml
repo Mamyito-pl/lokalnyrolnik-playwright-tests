@@ -52,7 +52,7 @@ jobs:
         run: |
           npm install -D allure-playwright
 
-      - name: install and configure allurectl using GH Action
+      - name: Install and configure allurectl using GH Action
         uses: allure-framework/setup-allurectl@v1
 
       - name: Run Playwright tests for Mobile Chrome with Allure

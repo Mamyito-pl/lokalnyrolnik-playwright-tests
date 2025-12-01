@@ -21,6 +21,7 @@ env:
   ALLURE_PROJECT_ID: 34
   ALLURE_RESULTS: "allure-results"
   ALLURE_LAUNCH_NAME: "LR - Web Firefox - Dzienny raport testów automatycznych na środowisku PROD"
+  GITHUB_TOKEN: ${{ secrets.ALLURE_GITHUB_TOKEN }}
 
 jobs:
   test:
@@ -53,13 +54,8 @@ jobs:
         run: |
           npm install -D allure-playwright
 
-      - name: install and configure allurectl using GH Action
+      - name: Install and configure allurectl using GH Action
         uses: allure-framework/setup-allurectl@v1
-        with:
-          allure-endpoint: https://mamyito.testops.cloud
-          allure-token: ${{ secrets.ALLURE_TOKEN }}
-          allure-project-id: 34
-          github-token:  ${{ secrets.ALLURE_GITHUB_TOKEN }}
 
       - name: Run Playwright tests for Web Firefox with Allure
         run: allurectl watch -- npx playwright test --max-failures=0 --project="firefox" --grep "@ProdSmoke"
