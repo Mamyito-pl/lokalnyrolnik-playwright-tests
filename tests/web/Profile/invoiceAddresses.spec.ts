@@ -13,7 +13,7 @@ test.describe('Testy dane do faktury', async () => {
 
   test.beforeEach(async ({ page }) => {
 
-    await page.goto('/profil/dane-faktury', { waitUntil: 'load' });
+    await page.goto('/profil/dane-faktury', { waitUntil: 'networkidle' });
 
     page.on('framenavigated', async () => {
       await utility.addGlobalStyles(page);
