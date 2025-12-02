@@ -97,6 +97,15 @@ export default defineConfig({
         baseURL: process.env.URL,
       },
       dependencies: ["setup"],
+    },
+
+    {
+      name: 'Performance',
+      testDir: './tests/performance-tests',
+      use: {
+        browserName: 'firefox',
+        baseURL: process.env.URL,
+      },
     }
   ]
 });
