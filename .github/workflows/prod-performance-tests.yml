@@ -63,7 +63,7 @@ jobs:
         uses: allure-framework/setup-allurectl@v1
 
       - name: Run Playwright tests for Web Chrome with Allure
-        run: allurectl watch -- npx playwright test tests/performance-tests/performance-tests.test.spec.ts --max-failures=0 --project="Performance"
+        run: allurectl watch -- npx playwright test tests/performance-tests/performance-tests.spec.ts --max-failures=0 --project="Performance"
         env:
           CI: 'true'
 
