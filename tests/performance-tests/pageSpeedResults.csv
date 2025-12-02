@@ -1,2 +1,1 @@
-
-"2.12.2025","12:55","931 ms","94","77","1.7 MB","2 s","2.5 s","364 ms","755 ms","0.28","0.5","1.8 s","2.1 s","1.2 s","1.2 s","59","41"
+Data,Godzina,Load time,Requests,Performance grade,Page size,LCP Desktop,LCP Mobile,INP Desktop,INP Mobile,CLS Desktop,CLS Mobile,FCP Desktop,FCP Mobile,TTFB Desktop,TTFB Mobile,Wydajność Desktop,Wydajność Mobile
