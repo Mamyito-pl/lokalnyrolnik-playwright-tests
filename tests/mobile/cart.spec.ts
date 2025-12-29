@@ -6,7 +6,7 @@ test.describe.configure({ mode: 'serial' });
 
 test.describe('Testy koszyka', () => {
 
-  let product: string = 'dorsz';
+  let product: string = 'bulion kolagenowy';
 
   test.beforeEach(async ({ page, commonPage }) => {
     await page.goto('/', { waitUntil: 'load' });

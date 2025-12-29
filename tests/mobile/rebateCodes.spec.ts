@@ -4,7 +4,7 @@ import * as utility from '../../utils/utility-methods';
 
 test.describe('Testy kodów rabatowych', async () => {
 
-  let product: string = 'dorsz';
+  let product: string = 'bulion kolagenowy';
 
   test.beforeEach(async ({ page, baseURL }) => {
     await page.goto(`${baseURL}/logowanie`, { waitUntil: 'networkidle' });
