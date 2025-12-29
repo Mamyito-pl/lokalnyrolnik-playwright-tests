@@ -105,6 +105,8 @@ test.describe('Testy dane do faktury', async () => {
 
     await addInvoiceAddress(addressName2, 'defaultInvoiceAddress');
 
+    await page.waitForTimeout(1000);
+
     await expect(invoiceAddressesPage.invoiceAddressPageTitle).toBeVisible();
 
     await page.getByText(addressName2).click({ force: true, delay: 300 });
