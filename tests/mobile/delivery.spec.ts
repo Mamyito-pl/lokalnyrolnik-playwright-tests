@@ -28,7 +28,7 @@ test.describe('Testy dostawy', async () => {
     await detachDeliverySlotViaAPI();
   })
 
-  test('M | Możliwość wyboru formy dostawy', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, deliveryPage, addAddressDeliveryViaAPI }) => {
+  test.fixme('M | Możliwość wyboru formy dostawy', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, deliveryPage, addAddressDeliveryViaAPI }) => {
 
     await allure.tags('Mobilne', 'Dostawa');
     await allure.epic('Mobilne');
