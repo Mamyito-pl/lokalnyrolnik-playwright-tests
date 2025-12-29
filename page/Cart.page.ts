@@ -39,7 +39,7 @@ export class CartPage {
         this.cartAvailableRebateCodesButton = page.getByRole('button', { name: 'Sprawdź dostępne kody' });
         this.cartExpandCollapseButton = page.locator('button[data-cy="cart-expand-button"]');
         this.totalSummaryValue = page.locator(this.mobile ? 'div[data-sentry-component="MobileSummary"] [data-cy="cart-summary-total-price"]' : '[data-sentry-element="SummaryColumn"] [data-cy="cart-summary-total-price"]');
-        this.cartCodesDrawer = page.getByText('Kody rabatowe nie obejmują napojów alkoholowych.').locator('..');
+        this.cartCodesDrawer = page.locator('button[aria-label="close drawer"]').locator('..').locator('..');
         this.summaryDeleteDiscountCodeButton = page.getByRole('button', { name: 'Usuń', exact: true });
         this.activeDiscountCodesTitle = page.locator('div[data-cy="active-codes-description"]');
         this.discountCodesTitle = page.locator('div[data-cy="cart-summary-rebate-codes"]');
