@@ -82,6 +82,7 @@ test.describe('Testy koszyka', () => {
     await addProduct(product);
 
     await page.goto('/koszyk', { waitUntil: 'load'});
+    await page.waitForTimeout(2000);
     await cartPage.productList.waitFor({ state: 'visible', timeout: 10000 });
     const productCount = await cartPage.productList.count();
     expect(productCount).toBe(1);

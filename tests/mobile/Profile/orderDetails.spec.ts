@@ -15,6 +15,21 @@ test.describe('Testy profilu', async () => {
     });
   })
 
+  test('M | Złożone prawidłowo zamówienie powinno wyświetlić się ze wszystkimi wymaganymi polami', { tag: ['@Beta', '@Test'] }, async ({ page, ordersListPage, orderDetailsPage, baseURL }) => {
+    
+    await allure.tags('Mobilne', 'Profil');
+    await allure.epic('Mobilne');
+    await allure.parentSuite('Profil');
+    await allure.suite('Testy szczegółów zamówienia');
+    await allure.subSuite('');
+    await allure.allureId('x');
+        
+    test.skip(`${process.env.URL}` == 'https://mamyito.pl', 'Test wymaga złożenia zamówienia');
+
+    test.setTimeout(150000);
+
+  })   
+
   test('M | Możliwość przejścia do szczegółów zamówienia z listy zamówień', { tag: ['@ProdSmoke', '@Beta', '@Test'] }, async ({ page, ordersListPage, orderDetailsPage, baseURL }) => {
     
     await allure.tags('Mobilne', 'Profil');
