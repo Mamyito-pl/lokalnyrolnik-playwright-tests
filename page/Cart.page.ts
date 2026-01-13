@@ -31,7 +31,7 @@ export class CartPage {
         this.increaseProductButton = page.locator(this.mobile ? 'div[data-sentry-element="TabletContent"] svg[class*="tabler-icon tabler-icon-plus"]' : 'div[data-sentry-element="InsideWrapper"] svg[class*="tabler-icon tabler-icon-plus"]');
         this.decreaseProductButton = page.locator(this.mobile ? 'div[data-sentry-element="TabletContent"] svg[class*="tabler-icon tabler-icon-minus"]' : 'div[data-sentry-element="InsideWrapper"] svg[class*="tabler-icon tabler-icon-minus"]');
         this.deleteProductCartIcon = page.locator('button[aria-label*="Usuń produkt"]');
-        this.deleteProductCartConfirmButton = page.locator('div[data-sentry-element="ModalContent"]').getByText('Potwierdź');
+        this.deleteProductCartConfirmButton = page.locator('#remove-product-from-cart-modal').getByText('Potwierdź', { exact: true });
         this.cartDrawerToCartButton = page.locator(this.mobile ? '[data-cy="mobile-drawer-checkout-button"]' : '[data-cy="desktop-drawer-checkout-button"]');
         this.cartSummaryButton = page.locator(this.mobile ? '[data-cy="mobile-cart-checkout-button"]' : '[data-cy="desktop-cart-checkout-button"]');
         this.cartSummaryPaymentButton = page.locator(this.mobile ? '[data-cy="mobile-delivery-checkout-button"]' : '[data-cy="desktop-delivery-checkout-button"]');
