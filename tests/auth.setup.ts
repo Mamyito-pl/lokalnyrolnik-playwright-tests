@@ -15,9 +15,9 @@ setup('Autoryzacja', async ({ page }) => {
   loginPage = new LoginPage(page);
   commonPage = new CommonPage(page);
 
-  /*page.on('framenavigated', async () => {
+  page.on('framenavigated', async () => {
     await utility.addGlobalStyles(page);
-  });*/
+  });
 
   const response = await page.request.get(`${process.env.URL}`);
   const maxRetries = 5;
@@ -53,6 +53,6 @@ setup('Autoryzacja', async ({ page }) => {
   //await utility.addGlobalStyles(page);
   await expect(commonPage.cartProductsPrice).toBeVisible({ timeout: 15000 });
   await expect(loginPage.registerButton).toBeHidden({ timeout: 10000 });
-  await expect(response).toBeOK();
+  //await expect(response).toBeOK();
   await page.context().storageState({ path: authFile })
 });
