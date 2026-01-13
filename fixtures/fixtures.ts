@@ -40,7 +40,7 @@ export const test = base.extend<MyFixtures>({
       await page.waitForTimeout(1000);
       await searchbarPage.productItemCount.type('1');
       await commonPage.cartButton.click();
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(3000);
     });
   },
 
