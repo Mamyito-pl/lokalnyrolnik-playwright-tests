@@ -276,5 +276,37 @@ test.describe('Testy dostawy', async () => {
 
       await page.waitForSelector(`text=${addressName3}`, { state: 'hidden' });
     })
+
+    test('W | Możliwość wyboru adresu dostawy', { tag: ['@Prod', '@Beta', '@Test'] }, async ({ page, addAddressDeliveryViaAPI }) => {
+
+      await allure.tags('Web', 'Dostawa');
+      await allure.epic('Webowe');
+      await allure.parentSuite('Dostawa');
+      await allure.suite('Testy dostawy');
+      await allure.subSuite('Adres dostawy');
+      await allure.allureId('4429');
+
+      test.setTimeout(100000);
+
+      await addAddressDeliveryViaAPI(addressName);
+      await addAddressDeliveryViaAPI(addressName2);
+
+      const targetAddress = page.getByText(addressName).locator('..').locator('..').locator('..');
+      
+      await page.goto('/dostawa', { waitUntil: 'domcontentloaded' });
+
+      await page.waitForTimeout(2000);
+
+      await page.waitForSelector(`text=${addressName}`, { state: 'visible' });
+      await page.waitForSelector(`text=${addressName2}`, { state: 'visible' });
+
+      await page.getByText(addressName).click({ force: true, delay: 300 });
+
+      await expect(targetAddress).toHaveCSS('background-color', 'rgb(249, 249, 249)', { timeout: 10000 });
+
+      await page.getByText(addressName2).click({ force: true, delay: 300 });
+
+      await expect(targetAddress).not.toHaveCSS('background-color', 'rgb(249, 249, 249)', { timeout: 10000 });
+    })
   })
 })
