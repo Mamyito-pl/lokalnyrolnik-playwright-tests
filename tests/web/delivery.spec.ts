@@ -10,6 +10,7 @@ test.describe('Testy dostawy', async () => {
   let addressName: string = 'Adres Testowy';
   let addressName2: string = 'Adres Fixturowy';
   let addressName3: string = 'Adres Edytowany';
+  let product: string = 'bulion kolagenowy';
 
   test.beforeEach(async ({ page }) => {
 
@@ -20,15 +21,16 @@ test.describe('Testy dostawy', async () => {
     });
   })
 
-  test.afterEach(async ({ deleteDeliveryAddressViaAPI, detachDeliverySlotViaAPI }) => {
+  test.afterEach(async ({ deleteDeliveryAddressViaAPI, detachDeliverySlotViaAPI, clearCartViaAPI }) => {
 
     await deleteDeliveryAddressViaAPI(addressName);
     await deleteDeliveryAddressViaAPI(addressName2);
     await deleteDeliveryAddressViaAPI(addressName3);
     await detachDeliverySlotViaAPI();
+    await clearCartViaAPI();
   })
 
-  test.fixme('W | Możliwość wyboru formy dostawy', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, deliveryPage, addAddressDeliveryViaAPI }) => {
+  test('W | Możliwość wyboru formy dostawy i przejście do płatności', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, deliveryPage, addAddressDeliveryViaAPI, cartPage, paymentsPage, baseURL, addBiggerAmountProduct }) => {
 
     await allure.tags('Web', 'Dostawa');
     await allure.epic('Webowe');
@@ -38,6 +40,10 @@ test.describe('Testy dostawy', async () => {
     await allure.allureId('3872');
 
     test.setTimeout(150000);
+
+    await page.goto('/');
+
+    await addBiggerAmountProduct(product);
 
     await addAddressDeliveryViaAPI(addressName, 'alternativeDeliveryAddress');
 
@@ -61,6 +67,12 @@ test.describe('Testy dostawy', async () => {
     const secondFormSlotHours = await deliveryPage.getDeliverySlotHours(0);
     
     expect(firstFormSlotHours).not.toEqual(secondFormSlotHours);
+
+    await deliveryPage.deliverySlotButton.first().click();
+    await expect(deliveryPage.deliverySlotButton.first()).toHaveCSS('background-color', 'rgb(142, 190, 78)');
+    await cartPage.clickCartSummaryPaymentButton();
+    await expect(page).toHaveURL(new RegExp(`${baseURL}` + '/platnosc'), { timeout: 20000 });
+    await expect(paymentsPage.statueCheckbox).toBeVisible({ timeout: 10000 });
   })
 
   test('W | Możliwość wyboru terminu dostawy', { tag: ['@ProdSmoke', '@Smoke'] }, async ({ page, deliveryPage, addAddressDeliveryViaAPI, detachDeliverySlotViaAPI }) => {
