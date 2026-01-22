@@ -38,6 +38,10 @@ export class PaymentsPage extends DeliveryPage {
         await this.page.locator('#Dpay').click({ force: true });
     }
 
+    async selectCardPayment() {
+        await this.page.locator('input[name="Płatność kartą online"]').click({ force: true });
+    }
+
     async setDeliveryFormAndSlot(addressName: string) {
         await this.page.waitForSelector(`text=${addressName}`, { state: 'visible' });
         await this.page.getByText(addressName).click({ force: true, delay: 300 });
