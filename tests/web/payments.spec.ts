@@ -79,7 +79,7 @@ test.describe('Testy płatności', async () => {
       await paymentsPage.canceledStatusIsVisible();
     })
     
-    test('W | Zapłata nieprawidłowym kodem BLIK', { tag: ['@ProdSmoke', '@Beta'] }, async ({ page, paymentsPage, orderDetailsPage, cartPage, commonPage, deliveryPage, baseURL, addProductsByValue }) => {
+    test('W | Zapłata nieprawidłowym kodem BLIK', { tag: ['@Beta'] }, async ({ page, paymentsPage, orderDetailsPage, cartPage, commonPage, deliveryPage, baseURL, addProductsByValue }) => {
 
       await allure.tags('Web', 'Płatności');
       await allure.epic('Webowe');
