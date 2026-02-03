@@ -39,15 +39,13 @@ test.describe('Testy dostawy', async () => {
     await allure.subSuite('');
     await allure.allureId('3870');
 
-    test.setTimeout(150000);
-
     await page.goto('/');
 
     await addBiggerAmountProduct(product);
 
     await addAddressDeliveryViaAPI(addressName, 'alternativeDeliveryAddress');
 
-    await page.goto('/dostawa', { waitUntil: 'load' });
+    await page.goto('/dostawa', { waitUntil: 'networkidle' });
 
     await page.waitForTimeout(2000);
 
@@ -57,6 +55,10 @@ test.describe('Testy dostawy', async () => {
     await deliveryPage.deliveryTypeButton.first().waitFor({ state: 'visible', timeout: 10000 });
     await deliveryPage.clickDeliveryType(0);
     await deliveryPage.deliveryDayButton.first().waitFor({ state: 'visible', timeout: 10000 });
+    await page.evaluate(async () => {
+      window.scrollBy(0, 1000)
+      await new Promise(r => setTimeout(r, 700));
+    })
     await deliveryPage.clickDeliveryDay(0);
     await deliveryPage.deliverySlotButton.first().waitFor({ state: 'visible', timeout: 10000 });
     const firstFormSlotHours = await deliveryPage.getDeliverySlotHours(0);
@@ -186,9 +188,9 @@ test.describe('Testy dostawy', async () => {
       await addAddressDeliveryViaAPI(addressName);
       await addAddressDeliveryViaAPI(addressName2);
 
-      const targetAddress = page.getByText(addressName).locator('..').locator('..').locator('..');
+      const targetAddress = page.getByText(addressName).locator('..').locator('..').locator('..').locator('..');
       
-      await page.goto('/dostawa', { waitUntil: 'load' });
+      await page.goto('/dostawa', { waitUntil: 'networkidle' });
 
       await page.waitForTimeout(2000);
       

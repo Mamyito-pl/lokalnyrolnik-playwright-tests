@@ -10,19 +10,19 @@ export class DeliveryPage extends DeliveryAddressesPage {
 
     constructor(page: Page) {
         super(page);
-        this.deliveryTypeButton = page.locator('div[aria-label="Metody dostawy"] label');
-        this.deliveryDayButton = page.locator('div[data-sentry-element="DaysWrapper"] label');
-        this.deliverySlotButton = page.locator('div[role="radio"] span');
-        this.deliverySlotHours = page.locator('div[role="radio"] label');
+        this.deliveryTypeButton = page.locator('[name="deliveryMethod"]');
+        this.deliveryDayButton = page.locator('[name="delivery-days"]');
+        this.deliverySlotButton = page.locator('[name="delivery-slots"]');
+        this.deliverySlotHours = page.locator('[name="delivery-slots"]').locator('..');
         this.deliveryAddressSectionTitle = page.getByRole('heading', { name: 'Adres dostawy' });
     }
 
     async clickDeliveryType(number: number) {
-        await this.deliveryTypeButton.nth(number).click();
+        await this.deliveryTypeButton.nth(number).click({ force: true, delay: 300 });
     }
 
     async clickDeliveryDay(number: number) {
-        await this.deliveryDayButton.nth(number).click();
+        await this.deliveryDayButton.nth(number).click({ force: true, delay: 300 });
     }
 
     async getDeliverySlotHours(number: number) {

@@ -39,15 +39,13 @@ test.describe('Testy dostawy', async () => {
     await allure.subSuite('');
     await allure.allureId('3872');
 
-    test.setTimeout(150000);
-
     await page.goto('/');
 
     await addBiggerAmountProduct(product);
 
     await addAddressDeliveryViaAPI(addressName, 'alternativeDeliveryAddress');
 
-    await page.goto('/dostawa', { waitUntil: 'load' });
+    await page.goto('/dostawa', { waitUntil: 'networkidle' });
 
     await page.waitForTimeout(2000);
 
@@ -303,9 +301,9 @@ test.describe('Testy dostawy', async () => {
       await addAddressDeliveryViaAPI(addressName);
       await addAddressDeliveryViaAPI(addressName2);
 
-      const targetAddress = page.getByText(addressName).locator('..').locator('..').locator('..');
+      const targetAddress = page.getByText(addressName).locator('..').locator('..').locator('..').locator('..');
       
-      await page.goto('/dostawa', { waitUntil: 'domcontentloaded' });
+      await page.goto('/dostawa', { waitUntil: 'networkidle' });
 
       await page.waitForTimeout(2000);
 

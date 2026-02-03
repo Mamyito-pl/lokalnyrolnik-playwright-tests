@@ -35,11 +35,11 @@ export class PaymentsPage extends DeliveryPage {
     }
 
     async selectDpay() {
-        await this.page.locator('#Dpay').click({ force: true });
+        await this.page.getByText('Przelew online', { exact: true }).click({ force: true });
     }
 
     async selectCardPayment() {
-        await this.page.locator('input[name="Płatność kartą online"]').click({ force: true });
+        await this.page.getByText('Płatność kartą online', { exact: true }).click({ force: true });
     }
 
     async setDeliveryFormAndSlot(addressName: string) {
